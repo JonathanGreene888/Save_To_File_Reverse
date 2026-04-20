@@ -59,6 +59,11 @@ int main() {
 	cout << "Enter the input to be saved" << endl;
 	// this gets the entire line of the input
 	std::getline(std::cin, user_input);
+	// checks to make sure the user didn't just press enter
+	if(user_input.empty()){
+		cout << "No input entered closing program";
+		return 0;
+	}
 	// this appends to the end of the file contents
 	std::ofstream outFile("CSC450_CT5_mod5.txt", std::ios::app);
 	// checks if the file is open so we can write to it
