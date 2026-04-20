@@ -9,6 +9,7 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
+#include <sstream>
 
 //pseudocode
 
@@ -25,18 +26,29 @@
 // save reverse_input to original file by appending last position after reading file
 
 // Couldn't use the above method as C++ has no split or join methods
-// opted to use the build in reverse in algorithms
+// opted to use the built in reverse in algorithms
 
 
 using namespace std;
 
-void reverse_input(string &i){
-	// this used the reverse algorithm build in
-	std::reverse(i.begin(), i.end());
+void reverse_input(){
+
+	ifstream inFile("CSC450_CT5_mod5.txt");
+	string content;
+
+	if(inFile.is_open()){
+		stringstream buffer;
+		buffer << inFile.rdbuf();
+		content = buffer.str();
+		inFile.close();
+	}
+
+	// this used the reverse algorithm built in
+	reverse(content.begin(), content.end());
 	// this appends to the end of the file contents
-	std::ofstream outFile("CSC450_CT5_mod5.txt", std::ios::app);
+	ofstream outFile("CSC450_CT5_mod5-reverse.txt", std::ios::trunc);
 	if(outFile.is_open()){
-		outFile << i << "\n";
+		outFile << content;
 		outFile.close();
 		cout << "Succesfully reversed and appended to file" << endl;
 	}
@@ -56,7 +68,7 @@ int main() {
 		cout << "Succesfully appended to file" << endl;
 	}
 
-	reverse_input(user_input);
+	reverse_input();
 	return 0;
 }
 
